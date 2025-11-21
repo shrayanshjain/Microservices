@@ -4,17 +4,8 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/configManagement/pom.xml" />
-        <option value="$PROJECT_DIR$/centralConfigManagement/orderMicroservice/pom.xml" />
-        <option value="$PROJECT_DIR$/centralConfigManagement/configManagement/pom.xml" />
-        <option value="$PROJECT_DIR$/Actuator/pom.xml" />
-        <option value="$PROJECT_DIR$/RefreshScope/pom.xml" />
-        <option value="$PROJECT_DIR$/RefreshScope/configManagement/pom.xml" />
-        <option value="$PROJECT_DIR$/RefreshScope/orderMicroservice/pom.xml" />
-        <option value="$PROJECT_DIR$/ConfigurationProperties/pom.xml" />
-        <option value="$PROJECT_DIR$/SpringCloudBus/pom.xml" />
-        <option value="$PROJECT_DIR$/SpringCloudBusConsumer/pom.xml" />
-        <option value="$PROJECT_DIR$/SpringCloudBusPublisher/pom.xml" />
+        <option value="$PROJECT_DIR$/DistributedTracing/Application1/pom.xml" />
+        <option value="$PROJECT_DIR$/DistributedTracing/Application2/pom.xml" />
       </list>
     </option>
   </component>

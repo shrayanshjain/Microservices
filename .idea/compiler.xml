@@ -11,7 +11,9 @@
         <module name="orderMicroservice" />
         <module name="configManagemenet (1)" />
         <module name="Producer" />
+        <module name="Application2" />
         <module name="SpringCloudBusConsumer" />
+        <module name="Application1" />
         <module name="configurationProperties" />
         <module name="Actuator" />
       </profile>
@@ -26,6 +28,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Actuator" options="-parameters" />
+      <module name="Application1" options="-parameters" />
+      <module name="Application2" options="-parameters" />
       <module name="ConfigurationProperties" options="-parameters" />
       <module name="Producer" options="-parameters" />
       <module name="SpringCloudBusConsumer" options="-parameters" />
