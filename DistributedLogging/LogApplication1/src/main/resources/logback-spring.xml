@@ -69,7 +69,7 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
 
             <!-- Masking decorator, we can have more than one decorator -->
-            <jsonGeneratorDecorator class="net.logstash.logback.decorate.MaskingJsonGeneratorDecorator">
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
 
                 <!-- What masked value should look like -->
                 <defaultMask>*****</defaultMask>
