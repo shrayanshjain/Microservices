@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/DistributedTracing/Application1/pom.xml" />
         <option value="$PROJECT_DIR$/DistributedTracing/Application2/pom.xml" />
+        <option value="$PROJECT_DIR$/LogApplication1/pom.xml" />
       </list>
     </option>
   </component>
