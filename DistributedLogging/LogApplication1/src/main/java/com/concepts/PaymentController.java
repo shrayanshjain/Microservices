@@ -1,8 +1,10 @@
 package com.concepts;
 
+import com.concepts.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,12 +13,35 @@ public class PaymentController {
 
     Logger log = LoggerFactory.getLogger(PaymentController.class);
 
+    @Autowired
+    PaymentService paymentService;
+
+    @GetMapping("/payments/correlation")
+    public String getPaymentsWithCorrelationId() {
+
+        log.info("payment is successful");
+
+        return "successfully fetched all payments";
+    }
+
     @GetMapping("/payments")
     public String getPayments() {
 
-        MDC.put("payment_id", "123");
-        MDC.put("password", "myPassword");
+        MDC.put("payment_id", "P123");
+        MDC.put("user_id", "U1234");
         log.info("payment is successful");
+        MDC.clear();
+
+        return "successfully fetched all payments";
+    }
+
+    @GetMapping("/payments/async")
+    public String getPaymentsAsync() {
+
+        MDC.put("payment_id", "P123");
+        MDC.put("user_id", "U1234");
+        paymentService.processPayment();
+        MDC.clear();
 
         return "successfully fetched all payments";
     }
