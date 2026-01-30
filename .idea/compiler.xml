@@ -14,6 +14,7 @@
         <module name="Application1" />
         <module name="tracingApp2" />
         <module name="tracingApp1" />
+        <module name="DistributedScheduler" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +33,7 @@
       <module name="Application1" options="-parameters" />
       <module name="Application2" options="-parameters" />
       <module name="ConfigurationProperties" options="-parameters" />
+      <module name="DistributedScheduler" options="-parameters" />
       <module name="LogApp" options="-parameters" />
       <module name="Producer" options="-parameters" />
       <module name="SpringCloudBusConsumer" options="-parameters" />
