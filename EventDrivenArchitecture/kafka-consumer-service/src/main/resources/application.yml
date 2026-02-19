@@ -1,0 +1,35 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: kafka-consumer-service
+  
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notification-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest  # Start from beginning if no offset exists
+      enable-auto-commit: false  # Manual commit for at-least-once delivery
+      max-poll-records: 100  # Fetch up to 100 records per poll
+      properties:
+        session.timeout.ms: 30000  # 30 seconds
+        heartbeat.interval.ms: 10000  # 10 seconds
+    listener:
+      ack-mode: manual  # Manual offset commit after processing
+
+# Kafka Topics Configuration
+kafka:
+  topics:
+    order-events: order-events
+
+# Logging
+logging:
+  level:
+    com.eda.consumer: DEBUG
+    org.apache.kafka: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
