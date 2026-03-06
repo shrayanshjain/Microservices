@@ -13,6 +13,7 @@
     <file url="file://$PROJECT_DIR$/DistributedTracing/Application1/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DistributedTracing/Application2/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DistributedTracing/Application2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/EventDrivenArchitecture/kafka-producer-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/RefreshScope/configManagement/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/RefreshScope/orderMicroservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/RefreshScope/src/main/java" charset="UTF-8" />

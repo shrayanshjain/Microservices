@@ -1,7 +1,5 @@
 package com.eda.producer.model;
 
-import java.time.LocalDateTime;
-
 public class Order {
     private String orderId;
     private String customerId;
@@ -9,19 +7,17 @@ public class Order {
     private Integer quantity;
     private Double totalAmount;
     private String status;
-    private LocalDateTime createdAt;
 
     public Order() {
     }
 
-    public Order(String orderId, String customerId, String productId, Integer quantity, Double totalAmount, String status, LocalDateTime createdAt) {
+    public Order(String orderId, String customerId, String productId, Integer quantity, Double totalAmount, String status) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.productId = productId;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
         this.status = status;
-        this.createdAt = createdAt;
     }
 
     public String getOrderId() {
@@ -70,21 +66,6 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String toJson() {
-        return String.format(
-            "{\"orderId\":\"%s\",\"customerId\":\"%s\",\"productId\":\"%s\",\"quantity\":%d,\"totalAmount\":%.2f,\"status\":\"%s\",\"createdAt\":\"%s\"}",
-            orderId, customerId, productId, quantity, totalAmount, status, createdAt
-        );
     }
 }
 
