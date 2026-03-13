@@ -21,7 +21,7 @@ public class KafkaProducerConfig {
     @Bean
     public NewTopic orderEventsTopic() {
         return TopicBuilder.name("order-events")
-                .partitions(3)
+                .partitions(4)
                 .replicas(2)
                 .config(TopicConfig.RETENTION_MS_CONFIG, "604800000")
                 .config(TopicConfig.CLEANUP_POLICY_CONFIG, "delete")
