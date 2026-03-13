@@ -82,12 +82,12 @@ public class OrderProducerService {
         List<String> results = new ArrayList<>();
         String key = orderId; // Same key → same partition → ordering matters
 
-        System.out.println("═══════════════════════════════════════════════");
+        System.out.println("***************************************");
         System.out.println("IDEMPOTENCY DEMO — Sending " + messageCount + " messages");
         System.out.println("Key: " + key + " (all go to SAME partition)");
         System.out.println("enable.idempotence=true");
         System.out.println("max.in.flight.requests.per.connection=5");
-        System.out.println("═══════════════════════════════════════════════");
+        System.out.println("***************************************");
 
         for (int i = 1; i <= messageCount; i++) {
             Order order = new Order();
