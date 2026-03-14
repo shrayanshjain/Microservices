@@ -15,6 +15,7 @@
         <module name="tracingApp2" />
         <module name="tracingApp1" />
         <module name="kafka-producer-service" />
+        <module name="kafka-consumer-service" />
         <module name="DistributedScheduler" />
       </profile>
     </annotationProcessing>
@@ -42,6 +43,7 @@
       <module name="configManagemenet" options="-parameters" />
       <module name="configManagemenet (1)" options="-parameters" />
       <module name="configurationProperties" options="-parameters" />
+      <module name="kafka-consumer-service" options="-parameters" />
       <module name="kafka-producer-service" options="-parameters" />
       <module name="orderMicroservice" options="-parameters" />
       <module name="orderMicroservice (1)" options="-parameters" />

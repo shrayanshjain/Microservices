@@ -1,10 +1,5 @@
 package com.eda.consumer.model;
 
-/**
- * Consumer's own Order model — mirrors the producer's Order fields.
- * The "contract" is the JSON shape, NOT a shared Java class.
- * Consumer and Producer are independent services with independent models.
- */
 public class Order {
 
     private String orderId;
