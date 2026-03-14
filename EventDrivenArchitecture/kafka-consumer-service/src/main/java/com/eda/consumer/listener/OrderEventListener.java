@@ -1,71 +1,49 @@
 package com.eda.consumer.listener;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import com.eda.consumer.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
+/**
+ * MINIMAL consumer — just @KafkaListener + a method parameter.
+ *
+ * What happens behind the scenes (all automatic):
+ *   1. Spring sees @KafkaListener → creates a KafkaMessageListenerContainer
+ *   2. Container creates a KafkaConsumer with your application.properties config
+ *   3. KafkaConsumer connects to bootstrap broker, finds Group Coordinator
+ *   4. Joins consumer group "order-consumer-group", gets partition assignment
+ *   5. Starts poll() loop → fetches records → calls this method → auto-commits offsets
+ *
+ * No @Configuration class needed. No ConsumerFactory bean. No ContainerFactory bean.
+ * Spring Boot auto-configures ALL of it from application.properties.
+ */
 @Component
 public class OrderEventListener {
 
     private static final Logger log = LoggerFactory.getLogger(OrderEventListener.class);
 
     /**
-     * Listens to order-events topic
-     * Consumer Group: notification-service-group
-     * 
-     * This demonstrates:
-     * - Consumer reading from partition
-     * - Manual offset commit (at-least-once delivery)
-     * - Processing events
+     * topics = which Kafka topic to subscribe to
+     *
+     * Spring's JsonDeserializer sees the method parameter type (Order)
+     * and deserializes the JSON bytes into an Order object.
+     *
+     * BUT WAIT — the producer's __TypeId__ header says "com.eda.producer.model.Order"
+     * and we have "com.eda.consumer.model.Order" — different package!
+     *
+     * This would normally cause ClassNotFoundException.
+     * We need ONE of these fixes in application.properties:
+     *   Option A: spring.json.type.mapping=com.eda.producer.model.Order:com.eda.consumer.model.Order
+     *   Option B: spring.json.use.type.headers=false (ignore header, infer type from method param)
+     *
+     * For UseCase 1 (minimal), we'll use Option A (explicit mapping) since it's
+     * the most straightforward — you see exactly what's happening.
      */
-    @KafkaListener(
-        topics = "${kafka.topics.order-events}",
-        groupId = "${spring.kafka.consumer.group-id}",
-        containerFactory = "kafkaListenerContainerFactory"
-    )
-    public void consumeOrderEvent(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
-        try {
-            log.info("📨 Received order event from Kafka");
-            log.info("   Topic: {}", record.topic());
-            log.info("   Partition: {}", record.partition());
-            log.info("   Offset: {}", record.offset());
-            log.info("   Key: {}", record.key());
-            log.info("   Timestamp: {}", record.timestamp());
-            log.debug("   Value: {}", record.value());
-
-            // Simulate processing the order event
-            processOrderEvent(record.key(), record.value());
-
-            // Manual commit after successful processing (at-least-once delivery)
-            acknowledgment.acknowledge();
-            log.info("✅ Order event processed and offset committed");
-
-        } catch (Exception e) {
-            log.error("❌ Error processing order event: {}", e.getMessage());
-            // Don't commit offset - message will be reprocessed
-            throw new RuntimeException("Failed to process order event", e);
-        }
-    }
-
-    /**
-     * Simulates processing the order event
-     * In real scenario: send email, SMS, push notification, etc.
-     */
-    private void processOrderEvent(String orderId, String orderJson) {
-        log.info("🔔 Sending notification for order: {}", orderId);
-        
-        // Simulate some processing time
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        log.info("📧 Email sent to customer for order: {}", orderId);
-        log.info("📱 SMS sent to customer for order: {}", orderId);
+    @KafkaListener(topics = "order-events")
+    public void consume(Order order) {
+        log.info("✅ Received order: {}", order);
     }
 }
 

@@ -12,20 +12,20 @@
     <artifactId>kafka-consumer-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>kafka-consumer-service</name>
-    <description>Kafka Consumer Service - Notification Service</description>
+    <description>Kafka Consumer Service — UseCase 1: Minimal</description>
 
     <properties>
         <java.version>17</java.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Web -->
+        <!-- Spring Boot Web (for health check / actuator later, also keeps app alive) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Kafka -->
+        <!-- Spring Kafka — brings in kafka-clients + spring-kafka auto-configuration -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
