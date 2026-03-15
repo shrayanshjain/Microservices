@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/DistributedLogging/LogApplication1/pom.xml" />
         <option value="$PROJECT_DIR$/DistributedScheduler/pom.xml" />
         <option value="$PROJECT_DIR$/EventDrivenArchitecture/kafka-producer-service/pom.xml" />
+        <option value="$PROJECT_DIR$/EventDrivenArchitecture/kafka-consumer-service/pom.xml" />
       </list>
     </option>
   </component>
