@@ -2,6 +2,7 @@ package com.eda.producer.service;
 
 import com.eda.producer.model.Order;
 
+import com.eda.producer.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 public class OrderProducerService {
 
     @Autowired
-    private KafkaTemplate<String, Order> kafkaTemplate;
+    private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Autowired
     @Qualifier("customSerializerKafkaTemplate")
@@ -26,7 +27,7 @@ public class OrderProducerService {
     public void sendWithKey(Order order) {
         String key = order.getOrderId();
 
-        CompletableFuture<SendResult<String, Order>> future =
+        CompletableFuture<SendResult<String, Object>> future =
                 kafkaTemplate.send("order-events", key, order);
 
         future.whenComplete((result, ex) -> {
@@ -36,6 +37,23 @@ public class OrderProducerService {
                 System.out.println("Offset: " + result.getRecordMetadata().offset());
             } else {
                 System.out.println("Failed to send order event: " +  ex.getMessage());
+            }
+        });
+    }
+
+    public void sendWithKeyPayment(Payment payment) {
+        String key = payment.getPaymentId();
+
+        CompletableFuture<SendResult<String, Object>> future =
+                kafkaTemplate.send("payment-events", key, payment);
+
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                System.out.println("payment event sent successfully!");
+                System.out.println("Partition: " +  result.getRecordMetadata().partition());
+                System.out.println("Offset: " + result.getRecordMetadata().offset());
+            } else {
+                System.out.println("Failed to send payment event: " +  ex.getMessage());
             }
         });
     }
@@ -100,7 +118,7 @@ public class OrderProducerService {
 
             final int messageNum = i;
 
-            CompletableFuture<SendResult<String, Order>> future =
+            CompletableFuture<SendResult<String, Object>> future =
                     kafkaTemplate.send("order-events", key, order);
 
             future.whenComplete((result, ex) -> {

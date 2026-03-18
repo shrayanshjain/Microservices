@@ -1,6 +1,7 @@
 package com.eda.producer.controller;
 
 import com.eda.producer.model.Order;
+import com.eda.producer.model.Payment;
 import com.eda.producer.service.OrderProducerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class OrderController {
     public ResponseEntity<String> sendWithKey(@RequestBody Order order) {
         orderProducerService.sendWithKey(order);
         return ResponseEntity.accepted().body("Order created and event published!");
+    }
+
+    @PostMapping("/with-key-payment")
+    public ResponseEntity<String> sendWithKeyPayment(@RequestBody Payment payment) {
+        orderProducerService.sendWithKeyPayment(payment);
+        return ResponseEntity.accepted().body("Payment created and event published!");
     }
 
     @PostMapping("/with-no-key")
