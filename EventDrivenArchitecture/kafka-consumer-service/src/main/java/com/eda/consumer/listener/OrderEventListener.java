@@ -18,11 +18,12 @@ public class OrderEventListener {
 
     @KafkaListener(topics = "order-events")
     public void consumeOrder(Order order) {
-        //business logic
-        System.out.println("Received order event:: " + order.getOrderId());
+
+        System.out.println("Received Order event:: " + order.getOrderId());
+
     }
 
-    @KafkaListener(topics = "payment-events")
+    //@KafkaListener(topics = "payment-events", containerFactory = "paymentKafkaListenerFactory")
     public void consumePayment(Payment payment) {
         //business logic
         System.out.println("Received payment event:: " + payment.getPaymentId());
