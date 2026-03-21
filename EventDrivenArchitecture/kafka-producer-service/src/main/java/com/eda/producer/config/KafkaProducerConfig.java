@@ -62,13 +62,13 @@ public class KafkaProducerConfig {
 
     @Bean
     @Primary
-    public KafkaTemplate<Object, Object> kafkaTemplate(KafkaProperties kafkaProperties) {
+    public KafkaTemplate<String, Object> kafkaTemplate(KafkaProperties kafkaProperties) {
 
         // Start with all producer properties from application.properties
         Map<String, Object> props =
                 new HashMap<>(kafkaProperties.buildProducerProperties(null));
 
-        DefaultKafkaProducerFactory<Object, Object> factory =
+        DefaultKafkaProducerFactory<String, Object> factory =
                 new DefaultKafkaProducerFactory<>(props);
 
         return new KafkaTemplate<>(factory);
