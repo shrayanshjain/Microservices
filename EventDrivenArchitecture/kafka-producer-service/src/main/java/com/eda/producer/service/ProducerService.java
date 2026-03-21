@@ -16,7 +16,7 @@ public class ProducerService {
     public void sendOrder(Order order) {
         String key = order.getOrderId();
 
-       kafkaTemplate.send("order-events", key, order);
+        kafkaTemplate.send("order-events", key, order);
     }
 
     public void sendPayment(Payment payment) {
@@ -24,4 +24,5 @@ public class ProducerService {
 
         kafkaTemplate.send("payment-events", key, payment);
     }
+
 }
