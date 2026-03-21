@@ -29,7 +29,6 @@ public class OrderProducerService {
 
         CompletableFuture<SendResult<String, Object>> future =
                 kafkaTemplate.send("order-events", key, order);
-
         future.whenComplete((result, ex) -> {
             if (ex == null) {
                 System.out.println("Order event sent successfully!");
@@ -39,6 +38,7 @@ public class OrderProducerService {
                 System.out.println("Failed to send order event: " +  ex.getMessage());
             }
         });
+
     }
 
     public void sendWithKeyPayment(Payment payment) {
@@ -124,10 +124,10 @@ public class OrderProducerService {
             future.whenComplete((result, ex) -> {
                 if (ex == null) {
                     String msg = String.format(
-                        "Message %d (STEP-%d) → Partition: %d, Offset: %d",
-                        messageNum, messageNum,
-                        result.getRecordMetadata().partition(),
-                        result.getRecordMetadata().offset()
+                            "Message %d (STEP-%d) → Partition: %d, Offset: %d",
+                            messageNum, messageNum,
+                            result.getRecordMetadata().partition(),
+                            result.getRecordMetadata().offset()
                     );
                     System.out.println(msg);
                     synchronized (results) {
@@ -140,5 +140,6 @@ public class OrderProducerService {
         }
 
         return results;
+
     }
 }
