@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 public class OrderProducerService {
 
     @Autowired
-    private KafkaTemplate<String, Object> kafkaTemplate;
+    private KafkaTemplate<Object, Object> kafkaTemplate;
 
     @Autowired
     @Qualifier("customSerializerKafkaTemplate")
@@ -27,35 +27,25 @@ public class OrderProducerService {
     public void sendWithKey(Order order) {
         String key = order.getOrderId();
 
-        CompletableFuture<SendResult<String, Object>> future =
-                kafkaTemplate.send("order-events", key, order);
-
-        future.whenComplete((result, ex) -> {
-            if (ex == null) {
-                System.out.println("Order event sent successfully!");
-                System.out.println("Partition: " +  result.getRecordMetadata().partition());
-                System.out.println("Offset: " + result.getRecordMetadata().offset());
-            } else {
-                System.out.println("Failed to send order event: " +  ex.getMessage());
-            }
-        });
+        CompletableFuture<SendResult<Object, Object>> future =
+                kafkaTemplate.send("order-events", "key", order);
     }
 
     public void sendWithKeyPayment(Payment payment) {
-        String key = payment.getPaymentId();
-
-        CompletableFuture<SendResult<String, Object>> future =
-                kafkaTemplate.send("payment-events", key, payment);
-
-        future.whenComplete((result, ex) -> {
-            if (ex == null) {
-                System.out.println("payment event sent successfully!");
-                System.out.println("Partition: " +  result.getRecordMetadata().partition());
-                System.out.println("Offset: " + result.getRecordMetadata().offset());
-            } else {
-                System.out.println("Failed to send payment event: " +  ex.getMessage());
-            }
-        });
+//        String key = payment.getPaymentId();
+//
+//        CompletableFuture<SendResult<String, Object>> future =
+//                kafkaTemplate.send("payment-events", key, payment);
+//
+//        future.whenComplete((result, ex) -> {
+//            if (ex == null) {
+//                System.out.println("payment event sent successfully!");
+//                System.out.println("Partition: " +  result.getRecordMetadata().partition());
+//                System.out.println("Offset: " + result.getRecordMetadata().offset());
+//            } else {
+//                System.out.println("Failed to send payment event: " +  ex.getMessage());
+//            }
+//        });
     }
 
     public void sendWithNoKeyAndCustomSerializer(Order order) {
@@ -97,48 +87,6 @@ public class OrderProducerService {
      *   - Messages are in correct order (STEP-1, STEP-2, ..., STEP-N)
      */
     public List<String> sendIdempotencyDemo(String orderId, int messageCount) {
-        List<String> results = new ArrayList<>();
-        String key = orderId; // Same key → same partition → ordering matters
-
-        System.out.println("***************************************");
-        System.out.println("IDEMPOTENCY DEMO — Sending " + messageCount + " messages");
-        System.out.println("Key: " + key + " (all go to SAME partition)");
-        System.out.println("enable.idempotence=true");
-        System.out.println("max.in.flight.requests.per.connection=5");
-        System.out.println("***************************************");
-
-        for (int i = 1; i <= messageCount; i++) {
-            Order order = new Order();
-            order.setOrderId(orderId);
-            order.setCustomerId("CUST-1");
-            order.setProductId("PROD-1");
-            order.setQuantity(i);
-            order.setTotalAmount(100.0 * i);
-            order.setStatus("STEP-" + i);  // STEP-1, STEP-2, ... STEP-N
-
-            final int messageNum = i;
-
-            CompletableFuture<SendResult<String, Object>> future =
-                    kafkaTemplate.send("order-events", key, order);
-
-            future.whenComplete((result, ex) -> {
-                if (ex == null) {
-                    String msg = String.format(
-                        "Message %d (STEP-%d) → Partition: %d, Offset: %d",
-                        messageNum, messageNum,
-                        result.getRecordMetadata().partition(),
-                        result.getRecordMetadata().offset()
-                    );
-                    System.out.println(msg);
-                    synchronized (results) {
-                        results.add(msg);
-                    }
-                } else {
-                    System.out.println("Message " + messageNum + " FAILED: " + ex.getMessage());
-                }
-            });
-        }
-
-        return results;
+        return null;
     }
 }
