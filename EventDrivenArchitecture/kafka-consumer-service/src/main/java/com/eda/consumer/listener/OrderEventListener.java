@@ -25,11 +25,11 @@ public class OrderEventListener {
     }
 
 
-//    @KafkaListener(topics = "payment-events", containerFactory = "paymentKafkaListenerFactory")
-//    public void consumePayment(Payment payment) {
-//        //business logic
-//        System.out.println("Received payment event:: " + payment.getPaymentId());
-//    }
+   // @KafkaListener(topics = "payment-events", containerFactory = "paymentKafkaListenerFactory")
+    public void consumePayment(Payment payment) {
+        //business logic
+        System.out.println("Received payment event:: " + payment.getPaymentId());
+    }
 
     /*
         Manual mapping

@@ -28,7 +28,7 @@ public class OrderProducerService {
         String key = order.getOrderId();
 
         CompletableFuture<SendResult<Object, Object>> future =
-                kafkaTemplate.send("order-events", "key", order);
+                kafkaTemplate.send("order-events", key, order);
     }
 
     public void sendWithKeyPayment(Payment payment) {
