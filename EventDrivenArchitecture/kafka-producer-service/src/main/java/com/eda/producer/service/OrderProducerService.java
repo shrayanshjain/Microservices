@@ -29,6 +29,16 @@ public class OrderProducerService {
 
         CompletableFuture<SendResult<String, Object>> future =
                 kafkaTemplate.send("order-events", key, order);
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                System.out.println("Order event sent successfully!");
+                System.out.println("Partition: " +  result.getRecordMetadata().partition());
+                System.out.println("Offset: " + result.getRecordMetadata().offset());
+            } else {
+                System.out.println("Failed to send order event: " +  ex.getMessage());
+            }
+        });
+
     }
 
     public void sendWithKeyPayment(Payment payment) {
