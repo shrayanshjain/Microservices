@@ -11,6 +11,8 @@
         <option value="$PROJECT_DIR$/DistributedScheduler/pom.xml" />
         <option value="$PROJECT_DIR$/EventDrivenArchitecture/kafka-producer-service/pom.xml" />
         <option value="$PROJECT_DIR$/EventDrivenArchitecture/kafka-consumer-service/pom.xml" />
+        <option value="$PROJECT_DIR$/EventDrivenArchitecture/schema-registry-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/EventDrivenArchitecture/schema-registry-producer/pom.xml" />
       </list>
     </option>
   </component>
