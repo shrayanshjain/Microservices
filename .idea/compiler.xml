@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="configManagemenet" />
         <module name="LogApp" />
-        <module name="orderMicroservice" />
-        <module name="Producer" />
+        <module name="schema-registry-producer" />
         <module name="Application2" />
         <module name="Application1" />
+        <module name="schema-registry-consumer" />
+        <module name="configManagemenet" />
+        <module name="orderMicroservice" />
+        <module name="Producer" />
         <module name="tracingApp2" />
         <module name="tracingApp1" />
         <module name="kafka-producer-service" />
@@ -47,6 +49,8 @@
       <module name="kafka-producer-service" options="-parameters" />
       <module name="orderMicroservice" options="-parameters" />
       <module name="orderMicroservice (1)" options="-parameters" />
+      <module name="schema-registry-consumer" options="-parameters" />
+      <module name="schema-registry-producer" options="-parameters" />
       <module name="tracingApp1" options="-parameters" />
       <module name="tracingApp2" options="-parameters" />
     </option>
