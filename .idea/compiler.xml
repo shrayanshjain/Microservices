@@ -13,6 +13,7 @@
         <module name="schema-registry-consumer" />
         <module name="configManagemenet" />
         <module name="orderMicroservice" />
+        <module name="outbox-polling-demo" />
         <module name="Producer" />
         <module name="tracingApp2" />
         <module name="tracingApp1" />
@@ -49,6 +50,7 @@
       <module name="kafka-producer-service" options="-parameters" />
       <module name="orderMicroservice" options="-parameters" />
       <module name="orderMicroservice (1)" options="-parameters" />
+      <module name="outbox-polling-demo" options="-parameters" />
       <module name="schema-registry-consumer" options="-parameters" />
       <module name="schema-registry-producer" options="-parameters" />
       <module name="tracingApp1" options="-parameters" />
