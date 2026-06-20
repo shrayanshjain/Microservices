@@ -31,7 +31,7 @@ public class KafkaProducerConfig {
                 .build();
     }
 
-    @Bean
+  //  @Bean
     public NewTopic paymentEventsTopic() {
         return TopicBuilder.name("payment-events")
                 .partitions(3)
