@@ -19,7 +19,9 @@
         <module name="tracingApp1" />
         <module name="kafka-producer-service" />
         <module name="kafka-consumer-service" />
+        <module name="kafka-streams-demo" />
         <module name="DistributedScheduler" />
+        <module name="AWS" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -34,7 +36,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Actuator" options="-parameters" />
+      <module name="AWS" options="-parameters" />
       <module name="Application1" options="-parameters" />
       <module name="Application2" options="-parameters" />
       <module name="ConfigurationProperties" options="-parameters" />
@@ -48,6 +50,7 @@
       <module name="configurationProperties" options="-parameters" />
       <module name="kafka-consumer-service" options="-parameters" />
       <module name="kafka-producer-service" options="-parameters" />
+      <module name="kafka-streams-demo" options="-parameters" />
       <module name="orderMicroservice" options="-parameters" />
       <module name="orderMicroservice (1)" options="-parameters" />
       <module name="outbox-polling-demo" options="-parameters" />

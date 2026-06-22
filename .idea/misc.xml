@@ -14,6 +14,8 @@
         <option value="$PROJECT_DIR$/EventDrivenArchitecture/schema-registry-consumer/pom.xml" />
         <option value="$PROJECT_DIR$/EventDrivenArchitecture/schema-registry-producer/pom.xml" />
         <option value="$PROJECT_DIR$/EventDrivenArchitecture/pollingDemo/pom.xml" />
+        <option value="$PROJECT_DIR$/AWS/pom.xml" />
+        <option value="$PROJECT_DIR$/EventDrivenArchitecture/kafka-streams-demo/pom.xml" />
       </list>
     </option>
   </component>
