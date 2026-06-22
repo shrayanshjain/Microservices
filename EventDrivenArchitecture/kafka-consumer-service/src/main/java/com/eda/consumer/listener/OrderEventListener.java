@@ -6,9 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.header.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +18,7 @@ public class OrderEventListener {
     @Autowired
     ObjectMapper objectMapper;
 
-    @KafkaListener(topics = "order-events")
+    //@KafkaListener(topics = "order-events")
     public void consumeOrder(Order order) {
 
         System.out.println("Received Order event:: " + order.getOrderId());
@@ -60,6 +61,16 @@ public class OrderEventListener {
             Payment payment = (Payment) record.value();
             System.out.println("Payment:: " + payment.getPaymentId());
         }
+    }
+
+    @KafkaListener(
+            topics = "order-analytics-product-count-store-changelog"
+    )
+    public void consume(
+            @Header(KafkaHeaders.RECEIVED_KEY) String key,
+            Long value) {
+
+        System.out.println(key + " -> " + value);
     }
 }
 
