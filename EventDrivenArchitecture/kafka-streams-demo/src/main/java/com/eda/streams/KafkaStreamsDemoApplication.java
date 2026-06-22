@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.EnableKafkaStreams;
 @EnableKafkaStreams
 public class KafkaStreamsDemoApplication {
 
-    public static void main(String[] args) {
+    public static void mafin(String[] args) {
         SpringApplication.run(KafkaStreamsDemoApplication.class, args);
     }
 }
