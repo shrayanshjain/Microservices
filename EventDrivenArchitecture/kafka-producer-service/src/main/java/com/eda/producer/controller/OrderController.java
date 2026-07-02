@@ -1,5 +1,6 @@
 package com.eda.producer.controller;
 
+import com.eda.producer.model.CntryCode;
 import com.eda.producer.model.Order;
 import com.eda.producer.model.Payment;
 import com.eda.producer.service.OrderProducerService;
@@ -15,6 +16,11 @@ public class OrderController {
     @Autowired
     OrderProducerService orderProducerService;
 
+    @PostMapping("/country")
+    public ResponseEntity<String> countryWithcode(@RequestBody CntryCode cntryCode) {
+        orderProducerService.sendCountryWithKey(cntryCode);
+        return ResponseEntity.accepted().body("country event published");
+    }
 
     @PostMapping("/with-key")
     public ResponseEntity<String> sendWithKey(@RequestBody Order order) {

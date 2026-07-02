@@ -7,17 +7,19 @@ public class Order {
     private Integer quantity;
     private Double totalAmount;
     private String status;
+    private String countryCode;
 
     public Order() {
     }
 
-    public Order(String orderId, String customerId, String productId, Integer quantity, Double totalAmount, String status) {
+    public Order(String orderId, String customerId, String productId, Integer quantity, Double totalAmount, String status, String countryCode) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.productId = productId;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.countryCode = countryCode;
     }
 
     public String getOrderId() {
@@ -66,6 +68,14 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }
 
