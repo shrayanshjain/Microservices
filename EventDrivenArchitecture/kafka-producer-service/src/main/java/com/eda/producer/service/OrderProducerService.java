@@ -1,5 +1,6 @@
 package com.eda.producer.service;
 
+import com.eda.producer.model.CntryCode;
 import com.eda.producer.model.Order;
 
 import com.eda.producer.model.Payment;
@@ -23,6 +24,11 @@ public class OrderProducerService {
     @Qualifier("customSerializerKafkaTemplate")
     private KafkaTemplate<String, Order> customSerializerKafkaTemplate;
 
+
+    public void sendCountryWithKey(CntryCode cntryCode) {
+        String key = cntryCode.getCountryCode();
+        kafkaTemplate.send("countries", key, cntryCode.getCountryName());
+    }
 
     public void sendWithKey(Order order) {
         String key = order.getOrderId();

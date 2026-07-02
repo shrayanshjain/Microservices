@@ -31,6 +31,18 @@ public class KafkaProducerConfig {
                 .build();
     }
 
+    @Bean
+    public NewTopic countriesTopic() {
+        return TopicBuilder.name("countries")
+                .partitions(3)
+                .replicas(2)
+                .config(TopicConfig.RETENTION_MS_CONFIG, "604800000")
+                .config(TopicConfig.CLEANUP_POLICY_CONFIG, "delete")
+                .config(TopicConfig.MIN_IN_SYNC_REPLICAS_CONFIG, "2")
+                .config(TopicConfig.SEGMENT_BYTES_CONFIG, "1073741824")
+                .build();
+    }
+
   //  @Bean
     public NewTopic paymentEventsTopic() {
         return TopicBuilder.name("payment-events")
