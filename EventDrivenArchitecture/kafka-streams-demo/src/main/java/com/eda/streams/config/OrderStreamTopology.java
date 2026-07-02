@@ -16,7 +16,7 @@ public class OrderStreamTopology {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Bean
+   //@Bean
     public KStream<String, String> orderCountTopology(StreamsBuilder builder) {
 
         // SOURCE: read from "order-events" as raw JSON strings ──
