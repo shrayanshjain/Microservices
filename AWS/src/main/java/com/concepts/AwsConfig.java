@@ -4,52 +4,42 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 @Configuration
 public class AwsConfig {
 
-    @Value("${aws.access-key}")
-    private String accessKey;
-
-    @Value("${aws.secret-key}")
-    private String secretKey;
-
     @Value("${aws.region}")
     private String region;
 
+    @Value("${aws.access-key-id}")
+    private String accessKey;
+
+    @Value("${aws.secret-access-key}")
+    private String secretKey;
 
     @Bean
     public S3Client s3Client() {
-
-        AwsBasicCredentials credentials =
-                AwsBasicCredentials.create(accessKey, secretKey);
-
+        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey );
         return S3Client.builder()
                 .region(Region.of(region))
-                .credentialsProvider(
-                        StaticCredentialsProvider.create(credentials)
-                )
+                .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .build();
     }
 
+    @Bean
+    public S3Presigner s3Presigner() {
 
-    /*
-        when ROLE is used
-     */
-    //@Bean
-    public S3Client s3ClientWithRole() {
+        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey );
 
-        //now when we run on EC2 instance,
-        // SDK will call STS, get temp credentials and fill
-        return S3Client.builder()
+        return S3Presigner.builder()
                 .region(Region.of(region))
-                .credentialsProvider(
-                        InstanceProfileCredentialsProvider.create()
-                )
+                .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .build();
     }
 }

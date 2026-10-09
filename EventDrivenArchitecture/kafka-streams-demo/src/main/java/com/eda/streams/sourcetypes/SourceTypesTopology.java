@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.support.serializer.JsonSerde;
 
+import java.time.Duration;
+import java.time.Instant;
+
 /**
  * ═══════════════════════════════════════════════════════════════════════
  *  SOURCE TYPES DEMO — KStream vs KTable vs GlobalKTable
@@ -75,7 +78,7 @@ public class SourceTypesTopology {
 
 
     //  EXAMPLE 3: GlobalKTable — full copy on every task/instance
-    @Bean
+   // @Bean
     public  KStream<String, String> globalKTableDemo(StreamsBuilder builder) {
 
         GlobalKTable<String, String> countries = builder.globalTable("countries",
@@ -112,17 +115,42 @@ public class SourceTypesTopology {
 
     }
 
-   // @Bean
-    public void kStreamDemoWithJsonSerde(StreamsBuilder builder) {
+    @Bean
+    public KStream<String, String>  kstreamWindowDemo(StreamsBuilder builder) {
 
-        Serde<Order> orderSerde = new JsonSerde<>(Order.class);
+        KStream<String, String> orders = builder.stream("order-events",
+                Consumed.with(Serdes.String(), Serdes.String()));
 
-        KStream<String, Order> orders = builder.stream("orders",
-                                                    Consumed.with(Serdes.String(), orderSerde));
 
-        orders.filter((key, order) -> order.getTotalAmount() > 100)
-                .to("order-events-output",
-                                 Produced.with(Serdes.String(), orderSerde));
+        KTable<Windowed<String>, Long> counts = orders
+                .groupByKey()
+                .windowedBy(TimeWindows.ofSizeAndGrace(Duration.ofMinutes(5), Duration.ofMinutes(1)))
+                .count(Materialized.as("order-count-store"));
+
+        /*
+            we can push the result to output topic too
+            or
+            don't do anything here, later we can use
+            Interactive queries which RocksDB provide to
+            query KTable
+         */
+        counts.toStream()
+                .peek((windowedKey, count) -> {
+                        System.out.println(
+                            "Key=" + windowedKey.key()
+                                    + ", Start=" + Instant.ofEpochMilli(windowedKey.window().start())
+                                    + ", End=" + Instant.ofEpochMilli(windowedKey.window().end())
+                                    + ", Count=" + count
+                        );
+                    })
+                .to("order-count-topic",
+                        Produced.with(
+                                WindowedSerdes.timeWindowedSerdeFrom(String.class),
+                                Serdes.Long()
+                        )
+                );
+
+        return orders;
     }
 }
 
