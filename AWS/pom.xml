@@ -45,6 +45,11 @@
             <artifactId>s3</artifactId>
             <version>2.28.11</version>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>cloudfront</artifactId>
+            <version>2.28.11</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

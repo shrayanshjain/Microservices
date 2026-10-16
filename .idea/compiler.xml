@@ -11,6 +11,7 @@
         <module name="Application2" />
         <module name="Application1" />
         <module name="schema-registry-consumer" />
+        <module name="Redis" />
         <module name="configManagemenet" />
         <module name="orderMicroservice" />
         <module name="outbox-polling-demo" />
@@ -43,6 +44,7 @@
       <module name="DistributedScheduler" options="-parameters" />
       <module name="LogApp" options="-parameters" />
       <module name="Producer" options="-parameters" />
+      <module name="Redis" options="-parameters" />
       <module name="SpringCloudBusConsumer" options="-parameters" />
       <module name="SpringCloudBusPublisher" options="-parameters" />
       <module name="configManagemenet" options="-parameters" />
