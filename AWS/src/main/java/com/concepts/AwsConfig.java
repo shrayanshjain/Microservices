@@ -1,5 +1,6 @@
 package com.concepts;
 
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
 @Configuration
 public class AwsConfig {
@@ -40,6 +42,24 @@ public class AwsConfig {
         return S3Presigner.builder()
                 .region(Region.of(region))
                 .credentialsProvider(StaticCredentialsProvider.create(credentials))
+                .build();
+    }
+
+    @Bean
+    public SqsAsyncClient sqsAsyncClient() {
+
+        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey );
+
+        return SqsAsyncClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(StaticCredentialsProvider.create(credentials))
+                .build();
+    }
+
+    @Bean
+    public SqsTemplate sqsTemplate(SqsAsyncClient sqsAsyncClient) {
+        return SqsTemplate.builder()
+                .sqsAsyncClient(sqsAsyncClient)
                 .build();
     }
 }
